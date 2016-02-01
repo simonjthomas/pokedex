@@ -72,7 +72,6 @@
 				F40952BE1C5E5F7A007CE065 /* View */,
 				F40952BF1C5E5F81007CE065 /* Controller */,
 				F40952A91C5E5A49007CE065 /* AppDelegate.swift */,
-				F40952CC1C5F9433007CE065 /* pokemusic.mp3 */,
 				F40952AD1C5E5A49007CE065 /* Main.storyboard */,
 				F40952B01C5E5A49007CE065 /* Assets.xcassets */,
 				F40952B21C5E5A49007CE065 /* LaunchScreen.storyboard */,
@@ -116,6 +115,7 @@
 		F40952C91C5F7EB1007CE065 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F40952CC1C5F9433007CE065 /* pokemusic.mp3 */,
 				F40952CA1C5F86BF007CE065 /* Pokemon.ttf */,
 				F40952BB1C5E5D0C007CE065 /* pokemon.csv */,
 			);

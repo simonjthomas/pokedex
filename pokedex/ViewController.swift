@@ -9,13 +9,20 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
     // Outlet for collection view
     @IBOutlet weak var collection: UICollectionView!
+    // Outlet for search bar
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var pokemon = [Pokemon]()
     var musicPlayer: AVAudioPlayer!
+    
+    // Set up variables for searching functionality
+    // Second array to hold filtered results
+    var inSearchMode = false
+    var filteredPokemon = [Pokemon]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +30,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         // Set delegate for collection view so we can implement delegate methods
         collection.delegate = self
         collection.dataSource = self
+        
+        // Set delegate for search bar
+        searchBar.delegate = self
+        
+        // Change name of Search button on search keyboard to be more relevant (change to Done)
+        searchBar.returnKeyType = UIReturnKeyType.Done
         
         // Play Music
         initAudio()
@@ -81,7 +94,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             // indexPath.row is current cell number, not actual row in traditional sense
             // Create a new pokemon object for each entry.
-            let poke = pokemon[indexPath.row]
+            // Check whether in search mode, and use appropriate array of pokemon
+            
+            let poke: Pokemon!
+            
+            if inSearchMode {
+                poke = filteredPokemon[indexPath.row]
+            } else {
+                poke = pokemon[indexPath.row]
+            }
+            
             cell.configureCell(poke)
             
             return cell
@@ -98,7 +120,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // Define number of items in the secion
-        return 718
+        // If in search mode, return count of filtered array, else return count of full array
+        if inSearchMode {
+            return filteredPokemon.count
+        }
+        
+        return pokemon.count
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -119,6 +146,36 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         } else {
             musicPlayer.play()
             sender.alpha = 1.0
+        }
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        // Handle search button being touched by removing keyboard
+        view.endEditing(true)
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        // Use a second array to hold the filtered results, seperate from the main array
+        // This method is called everytime the text changes
+        // Check if the search bar is empty
+        if searchBar.text == nil || searchBar.text == "" {
+            // Searchbar empty
+            inSearchMode = false
+            //  Remove keyboard when the search field is empty
+            view.endEditing(true)
+            collection.reloadData()
+        } else {
+            // A letter has been typed / changed & search bar is not empty so enter search mode
+            inSearchMode = true
+            // Convert to lower case
+            let lower = searchBar.text!.lowercaseString
+            // There's a methid on arrays that allows filtering
+            // $0 means grab element and give name of 0, is similar to looking up an element in array
+            // This assigned a filtered version of the full array to the new array
+            filteredPokemon = pokemon.filter({$0.name.rangeOfString(lower) != nil})
+            // Refresh collection view
+            // Will need to make sure that the filtered list is returned if in search mode
+            collection.reloadData()
         }
     }
 }
