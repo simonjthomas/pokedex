@@ -142,11 +142,64 @@
                     <connections>
                         <outlet property="collection" destination="Tvv-Qb-G15" id="tlv-HJ-QGW"/>
                         <outlet property="searchBar" destination="yvi-4M-25r" id="3Z1-xW-rRy"/>
+                        <segue destination="xfy-EN-off" kind="show" identifier="PokemonDetailVC" id="jDE-cU-S8F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="445" y="474"/>
+        </scene>
+        <!--Pokemon DetailVC-->
+        <scene sceneID="Pd0-ag-wQe">
+            <objects>
+                <viewController id="xfy-EN-off" customClass="PokemonDetailVC" customModule="pokedex" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qT3-Hl-hQm"/>
+                        <viewControllerLayoutGuide type="bottom" id="9UL-7O-WG1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hA6-2j-QnB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OXE-78-DKC">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zUH-8d-ACp">
+                                        <rect key="frame" x="182" y="13" width="236" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="140" id="KXA-Ju-nAN"/>
+                                            <constraint firstAttribute="height" constant="21" id="doi-Fs-y2t"/>
+                                            <constraint firstAttribute="width" constant="236" id="enF-Wv-6uj"/>
+                                            <constraint firstAttribute="height" constant="30" id="hE6-zc-y9Z"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="KXA-Ju-nAN"/>
+                                                <exclude reference="doi-Fs-y2t"/>
+                                            </mask>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.11059125390000001" blue="0.10176698350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="zUH-8d-ACp" firstAttribute="centerY" secondItem="OXE-78-DKC" secondAttribute="centerY" id="35g-Ca-iDe"/>
+                                    <constraint firstItem="zUH-8d-ACp" firstAttribute="centerX" secondItem="OXE-78-DKC" secondAttribute="centerX" id="EwH-We-d85"/>
+                                    <constraint firstAttribute="height" constant="55" id="jFL-fs-rnt"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="nameLbl" destination="zUH-8d-ACp" id="WcF-YU-R5e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GMv-Fi-8Wx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1127" y="474"/>
         </scene>
     </scenes>
     <resources>

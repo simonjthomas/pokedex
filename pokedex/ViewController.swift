@@ -115,7 +115,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        // Triggered whenever an item is tapped
+        let poke: Pokemon!
+        if inSearchMode {
+            poke = filteredPokemon[indexPath.row]
+        } else {
+            poke = pokemon[indexPath.row]
+        }
         
+        performSegueWithIdentifier("PokemonDetailVC", sender: poke)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -176,6 +184,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             // Refresh collection view
             // Will need to make sure that the filtered list is returned if in search mode
             collection.reloadData()
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Check it's the segue heading to the details screen (based on the id given to the segue)
+        if segue.identifier == "PokemonDetailVC" {
+            // Grad the view controller we're going to
+            // Need to cast as it's returning a UIViewController
+            if let detailsVC = segue.destinationViewController as? PokemonDetailVC {
+                // Need to cast as sender could be any object
+                // Grabbing the poke object, which was the sender, and put it in the new VC
+                if let poke = sender as? Pokemon {
+                    detailsVC.pokemon = poke
+                }
+            }
         }
     }
 }
